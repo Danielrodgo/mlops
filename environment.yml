@@ -1,13 +1,17 @@
-# environment.yml  [Dependencies]
-# -------------------------------------------------------------------
-# Purpose   List the packages (and Python version) the project needs
-# Used by   You and your teammates: conda env create -f environment.yml
-# Why       Everyone runs the same code on the same versions ("works on my machine" ends here)
-#
-# Typical groups
-#   data and modelling    e.g. pandas, scikit-learn, joblib
-#   notebooks and plots   exploration only
-#   quality (stage 2)     test runner, coverage, style checker
-#   stage 3               config, tracking, serving and locking tools
-#
-# Stage 3: conda-lock.yml freezes these into exact versions for CI and Docker
+# Conda environment for the hourly bike rental demand forecasting pipeline
+name: environment_solo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+
+  # pipeline packages: what src/ imports to run
+  - pandas        # tables and the hourly time index (notebook cell 3)
+  - numpy         # arrays and the weighted_mae metric (notebook cell 3)
+  - scikit-learn  # HistGradientBoostingRegressor (notebook cell 17)
+  - joblib        # saves and loads the fitted model in utils.py (not imported in the notebook)
+
+  # development tools: check the code, not needed to run it
+  - pytest      # runs the tests
+  - pytest-cov  # test coverage, used with pytest --cov=src
+  - flake8      # style checker
