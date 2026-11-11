@@ -45,4 +45,3 @@ def test_integration_load_raw_data_reads_file_written_by_utils(tmp_path):
     loaded = load_raw_data(csv_path)
 
     pd.testing.assert_frame_equal(loaded, df)
-
